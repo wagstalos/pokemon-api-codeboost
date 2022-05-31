@@ -1,0 +1,20 @@
+{
+  "name": "codeboost-gulp",
+  "version": "1.0.0",
+  "description": "Um projeto criado par ao codeboost",
+  "main": "index.js",
+  "author": "William Moreira",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "browser-sync": "^2.27.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.0.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.44.0"
+  }
+}
