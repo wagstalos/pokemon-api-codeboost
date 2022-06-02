@@ -159,7 +159,7 @@ axios({
       nameType.textContent = firstLetter(type.name);
       buttonType.appendChild(nameType);
 
-      //drop mobile
+      //drop mobile list
       let itemTypeMobile = document.createElement("li");
       areaTypesMobile.appendChild(itemTypeMobile);
 
