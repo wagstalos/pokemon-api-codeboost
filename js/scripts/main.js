@@ -24,9 +24,9 @@ btnDropdownSelect.addEventListener("click", () => {
   btnDropdownSelect.parentElement.classList.toggle("active");
 });
 
-const areaPokemons = document.getElementById('js-list-pokemons');
+const areaPokemons = document.getElementById("js-list-pokemons");
 
-function fisrtLetter(string){
+function firstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -36,38 +36,38 @@ function createCardPokemon(code, type, nome, imagePok) {
   areaPokemons.appendChild(card);
 
   let image = document.createElement("div");
-  image.classList = 'image';
+  image.classList = "image";
   card.appendChild(image);
 
-  let imageSrc = document.createElement('img');
-  imageSrc.className = 'thumb-img'
-  imageSrc.setAttribute('src', imagePok);
+  let imageSrc = document.createElement("img");
+  imageSrc.className = "thumb-img";
+  imageSrc.setAttribute("src", imagePok);
   image.appendChild(imageSrc);
 
-  let infoCardPokemon = document.createElement('div');
-  infoCardPokemon.classList = 'info';
+  let infoCardPokemon = document.createElement("div");
+  infoCardPokemon.classList = "info";
   card.appendChild(infoCardPokemon);
 
-  let infoTextPokemon = document.createElement('div');
-  infoTextPokemon.classList = 'text';
+  let infoTextPokemon = document.createElement("div");
+  infoTextPokemon.classList = "text";
   infoCardPokemon.appendChild(infoTextPokemon);
 
-  let codePokemon = document.createElement('span')
-  codePokemon.textContent = (code < 10 ) ? `#00${code}` : (code < 100) ? `#0${code}` :  `#${code}`; 
+  let codePokemon = document.createElement("span");
+  codePokemon.textContent =
+    code < 10 ? `#00${code}` : code < 100 ? `#0${code}` : `#${code}`;
   infoTextPokemon.appendChild(codePokemon);
 
-  let namePokemon = document.createElement('h3');
-  namePokemon.textContent = fisrtLetter(nome);
+  let namePokemon = document.createElement("h3");
+  namePokemon.textContent = firstLetter(nome);
   infoTextPokemon.appendChild(namePokemon);
 
-  let areaIcon = document.createElement('div');
-  areaIcon.classList = 'icon';
+  let areaIcon = document.createElement("div");
+  areaIcon.classList = "icon";
   infoCardPokemon.appendChild(areaIcon);
 
-  let imgType = document.createElement('img');
-  imgType.setAttribute('src', `img/icon-types/${type}.svg`)
+  let imgType = document.createElement("img");
+  imgType.setAttribute("src", `img/icon-types/${type}.svg`);
   areaIcon.appendChild(imgType);
-
 }
 
 function listinungPokemons(urlApi) {
@@ -103,18 +103,19 @@ function listinungPokemons(urlApi) {
           infoCard.image
         );
 
-        const cardPokemon = document.querySelectorAll('.js-open-details-pokemon');
+        const cardPokemon = document.querySelectorAll(
+          ".js-open-details-pokemon"
+        );
 
-        cardPokemon.forEach(card =>{
-          card.addEventListener('click', openDetailsPokemon )
-        })
+        cardPokemon.forEach((card) => {
+          card.addEventListener("click", openDetailsPokemon);
+        });
       });
     });
   });
 }
 
 listinungPokemons("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0");
-
 
 function openDetailsPokemon() {
   document.documentElement.classList.add("open-modal");
@@ -124,12 +125,70 @@ function closeDetailsPokemon() {
   document.documentElement.classList.remove("open-modal");
 }
 
-
 //script para listar todos os tipos de pokemon
 
-const areaTypes = document.getElementById('js-type-area')
+const areaTypes = document.getElementById("js-type-area");
+const areaTypesMobile = document.querySelector(".dropdown-select");
+
+console.log(areaTypesMobile);
 
 axios({
-  method: 'GET',
-  url: 'https://pokeapi.co/api/v2/type'
-})
+  method: "GET",
+  url: "https://pokeapi.co/api/v2/type",
+}).then((response) => {
+  const { results } = response.data;
+
+  results.forEach((type, index) => {
+    if (index < 18) {
+      let itemType = document.createElement("li");
+      areaTypes.appendChild(itemType);
+
+      let buttonType = document.createElement("button");
+      buttonType.classList = `type-filter ${type.name}`;
+      itemType.appendChild(buttonType);
+
+      let iconType = document.createElement("div");
+      iconType.classList = "icon";
+      buttonType.appendChild(iconType);
+
+      let srcType = document.createElement("img");
+      srcType.setAttribute("src", `img/icon-types/${type.name}.svg`);
+      iconType.appendChild(srcType);
+
+      let nameType = document.createElement("span");
+      nameType.textContent = firstLetter(type.name);
+      buttonType.appendChild(nameType);
+
+      //drop mobile
+      let itemTypeMobile = document.createElement("li");
+      areaTypesMobile.appendChild(itemTypeMobile);
+
+      let buttonTypeMobile = document.createElement("button");
+      buttonTypeMobile.classList = `type-filter ${type.name}`;
+      itemTypeMobile.appendChild(buttonTypeMobile);
+
+      let iconTypeMobile = document.createElement("div");
+      iconTypeMobile.classList = "icon";
+      buttonTypeMobile.appendChild(iconTypeMobile);
+
+      let srcTypeMobile = document.createElement("img");
+      srcTypeMobile.setAttribute("src", `img/icon-types/${type.name}.svg`);
+      iconTypeMobile.appendChild(srcTypeMobile);
+
+      let nameTypeMobile = document.createElement("span");
+      nameTypeMobile.textContent = firstLetter(type.name);
+      buttonTypeMobile.appendChild(nameTypeMobile);
+    }
+  });
+});
+
+{
+  /* <li>
+ <button class="type-filter active all" code-type="">
+                <div class="icon">
+                  <img src="img/icon-all.svg" alt="">
+                </div>
+                <span>All</span>
+              </button>
+            </li> */
+}
