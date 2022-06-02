@@ -181,14 +181,3 @@ axios({
     }
   });
 });
-
-{
-  /* <li>
- <button class="type-filter active all" code-type="">
-                <div class="icon">
-                  <img src="img/icon-all.svg" alt="">
-                </div>
-                <span>All</span>
-              </button>
-            </li> */
-}
