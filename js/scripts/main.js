@@ -70,7 +70,7 @@ function createCardPokemon(code, type, nome, imagePok) {
   areaIcon.appendChild(imgType);
 }
 
-function listinungPokemons(urlApi) {
+function listiningPokemons(urlApi) {
   axios({
     method: "GET",
     url: urlApi,
@@ -115,7 +115,7 @@ function listinungPokemons(urlApi) {
   });
 }
 
-listinungPokemons("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0");
+listiningPokemons("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0");
 
 function openDetailsPokemon() {
   document.documentElement.classList.add("open-modal");
@@ -181,3 +181,16 @@ axios({
     }
   });
 });
+
+//script load more
+const btnLoadMore = document.getElementById('js-btn-load-more');
+
+let countPagination = 10;
+
+function showMorePokemon(){
+  listiningPokemons(`https://pokeapi.co/api/v2/pokemon?limit=9&offset=${countPagination}`);
+
+  countPagination = countPagination + 9;
+}
+
+btnLoadMore.addEventListener('click', showMorePokemon)
