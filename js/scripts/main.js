@@ -33,6 +33,7 @@ function firstLetter(string) {
 function createCardPokemon(code, type, nome, imagePok) {
   let card = document.createElement("button");
   card.classList = `card-pokemon js-open-details-pokemon ${type}`;
+  card.setAttribute('code-pokemon', code);
   areaPokemons.appendChild(card);
 
   let image = document.createElement("div");
@@ -119,6 +120,34 @@ listiningPokemons("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0");
 
 function openDetailsPokemon() {
   document.documentElement.classList.add("open-modal");
+
+  let codePokemon = this.getAttribute('code-pokemon');
+  let imagePokemon = this.querySelector('.thumb-img');
+  let iconTypePokemon = this.querySelector('.info .icon img');
+  let namePokemon = this.querySelector('.info h3');
+  let codeStringPokemon = this.querySelector('.info span');
+
+  const modalDetails = document.getElementById('js-modal-details');
+  const imgPokemonModal = document.getElementById('js-image-pokemon-modal');
+  const iconTypePokemonModal = document.getElementById('js-image-type-modal');
+  const namePokemonModal = document.getElementById('js-name-pokemon-modal');
+  const codePokemonModal = document.getElementById('js-code-pokemon-modal');
+
+  imgPokemonModal.setAttribute('src', imagePokemon.getAttribute('src'));
+  modalDetails.setAttribute('type-pokemon-modal', this.classList[2]);
+  iconTypePokemonModal.setAttribute('src', iconTypePokemon.getAttribute('src'));
+
+  namePokemonModal.textContent = namePokemon.textContent;
+  codePokemonModal.textContent = codeStringPokemon.textContent;
+ 
+  // axios({
+  //   method: 'GET',
+  //   url: `https://pokeapi.co/api/v2/pokemon/${codePokemon}`
+  // })
+  // .then(response => {
+  //   console.log(response.data.name);
+  // })
+
 }
 
 function closeDetailsPokemon() {
