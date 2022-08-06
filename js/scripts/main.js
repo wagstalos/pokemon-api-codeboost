@@ -1,4 +1,5 @@
 // scripts do slide principal
+
 var slide_hero = new Swiper(".slide-hero", {
   effect: "fade",
   pagination: {
@@ -132,38 +133,60 @@ function openDetailsPokemon() {
   const iconTypePokemonModal = document.getElementById("js-image-type-modal");
   const namePokemonModal = document.getElementById("js-name-pokemon-modal");
   const codePokemonModal = document.getElementById("js-code-pokemon-modal");
+  const heightPokemonModal = document.getElementById("js-height-pokemon");
+  const weightPokemonModal = document.getElementById("js-weight-pokemon");
+  const mainAbilitiesPokemonModal = document.getElementById("js-main-abilities");
 
   imgPokemonModal.setAttribute("src", imagePokemon.getAttribute("src"));
   modalDetails.setAttribute("type-pokemon-modal", this.classList[2]);
   iconTypePokemonModal.setAttribute("src", iconTypePokemon.getAttribute("src"));
 
+
   namePokemonModal.textContent = namePokemon.textContent;
   codePokemonModal.textContent = codeStringPokemon.textContent;
 
   axios({
-    method: 'GET',
-    url: `https://pokeapi.co/api/v2/pokemon/${codePokemon}`
-  })
-  .then(response => {
+    method: "GET",
+    url: `https://pokeapi.co/api/v2/pokemon/${codePokemon}`,
+  }).then((response) => {
     let data = response.data;
-    console.log(data)
+    //console.log(data);
 
-    let infoPokemon ={
+    let infoPokemon = {
       mainAbilities: firstLetter(data.abilities[0].ability.name),
       types: data.types,
       weight: data.weight,
       height: data.height,
       abilities: data.abilities,
       stats: data.stats,
-      urlType: data.types[0].type.url
+      urlType: data.types[0].type.url,
+    };
+
+    function listingTypesPokemon() {
+      const areaTypesModal = document.getElementById("js-types-pokemon");
+
+      areaTypesModal.innerHTML = "";
+
+      let arrayTypes = infoPokemon.types;
+
+      arrayTypes.forEach((itemType) => {
+        let itemList = document.createElement("li");
+        areaTypesModal.appendChild(itemList);
+
+        let spanList = document.createElement("span");
+        spanList.classList = `tag-type ${itemType.type.name}`;
+        spanList.textContent = firstLetter(itemType.type.name) ;
+        itemList.appendChild(spanList);
+      });
     }
 
-    function listingTypesPokemon(){
-      
-    }
+    heightPokemonModal.textContent =`${infoPokemon.height / 10}m`;
+    weightPokemonModal.textContent = `${infoPokemon.weight / 10}Kg`;
+    mainAbilitiesPokemonModal.textContent = infoPokemon.mainAbilities;
 
-    console.log(infoPokemon);
-  })
+    listingTypesPokemon();
+
+  });
 }
 
 function closeDetailsPokemon() {
@@ -175,14 +198,14 @@ function closeDetailsPokemon() {
 const areaTypes = document.getElementById("js-type-area");
 const areaTypesMobile = document.querySelector(".dropdown-select");
 
-console.log(areaTypesMobile);
+//console.log(areaTypesMobile);
 
 axios({
   method: "GET",
   url: "https://pokeapi.co/api/v2/type",
 }).then((response) => {
   const { results } = response.data;
-  console.log(results[0].name)
+  //console.log(results[0].name);
 
   results.forEach((type, index) => {
     if (index < 18) {
