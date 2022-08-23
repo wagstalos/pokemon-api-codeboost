@@ -1,7 +1,7 @@
 {
   "name": "codeboost-gulp",
   "version": "1.0.0",
-  "description": "Um projeto criado par ao codeboost",
+  "description": "Um projeto criado para o codeboost",
   "main": "index.js",
   "author": "William Moreira",
   "license": "MIT",
